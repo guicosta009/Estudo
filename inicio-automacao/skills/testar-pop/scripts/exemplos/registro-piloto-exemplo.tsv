@@ -1,0 +1,16 @@
+# Exemplo fictício: POP de petição inicial (PEC-01) de um escritório previdenciário de 3 pessoas. Números de exemplo.
+Dia	Semana	Caso (código)	Tipo de caso	Executor	Min. execução	Min. revisão	Voltou para retrabalho?	Min. retrabalho	Erros pegos na revisão (tipo)	Erro chegou ao cliente ou tribunal?	Desvio do POP? Por quê	Observação
+dia 1	1	CASO-07	Comum	Assistente	70	30	Não	0	1 (data)	Não	Não	
+dia 1	1	CASO-08	Difícil	Assistente	90	40	Sim	30	2 (fato, tom)	Não	Sim: pediu ajuda à advogada no passo 4	
+dia 2	1	CASO-09	Comum	Assistente	75	25	Não	0	1 (valor)	Não	Não	
+dia 3	1	CASO-10	Fácil	Assistente	60	20	Não	0	0	Não	Não	
+dia 4	1	CASO-11	Comum	Assistente	80	35	Sim	25	1 (fato)	Não	Não	
+dia 5	1	CASO-12	Comum	Assistente	70	30	Não	0	1 (tom)	Não	Sim: usou modelo antigo	
+dia 6	2	CASO-13	Comum	Assistente	60	25	Não	0	1 (data)	Não	Não	
+dia 6	2	CASO-14	Difícil	Assistente	75	30	Sim	20	1 (fato)	Não	Não	
+dia 7	2	CASO-15	Comum	Assistente	55	2	Não	0	0	Não	Não	
+dia 7	2	CASO-16	Comum	Assistente	55	1	Não	0	0	Não	Não	
+dia 8	2	CASO-17	Fácil	Assistente	50	2	Não	0	0	Não	Não	
+dia 8	2	CASO-18	Comum	Assistente	60	1	Não	0	0	Não	Não	
+dia 9	2	CASO-19	Comum	Assistente	58	2	Não	0	0	Não	Não	
+dia 10	2	CASO-20	Comum	Assistente	62	20	Não	0	1 (invenção)	Não	Não	Ementa citada sem fonte

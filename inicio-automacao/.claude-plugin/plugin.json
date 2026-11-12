@@ -1,0 +1,26 @@
+{
+  "name": "inicio-automacao",
+  "version": "0.3.1",
+  "description": "Estrutura o escritório de advocacia para a automação com IA, na ordem certa: diagnóstico, cultura, mapa de setores, POPs com IA (S, A, H) desenhados, testados e versionados, base de conhecimento (com o inventário da pasta real do escritório), habilidades do Claude, automação e medição do retorno. Traz roteiros completos para produção de peças e para atendimento pelo WhatsApp. Tem trilha para escritório solo e para escritório com equipe.",
+  "author": {
+    "name": "Raphael Cardoso",
+    "url": "https://instagram.com/raphaelcardoso.adv"
+  },
+  "license": "MIT",
+  "keywords": [
+    "advocacia",
+    "automacao",
+    "base-de-conhecimento",
+    "brasil",
+    "cultura",
+    "escritorio",
+    "fluxograma",
+    "gestao",
+    "habilidades",
+    "ia",
+    "pecas",
+    "pop",
+    "processos",
+    "whatsapp"
+  ]
+}

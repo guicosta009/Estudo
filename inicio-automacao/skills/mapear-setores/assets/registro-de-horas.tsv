@@ -1,0 +1,4 @@
+Data	Pessoa	Setor	Atividade (verbo + objeto)	Início	Fim	Minutos	Canal	Interrompida?	S / A / H	Observação
+02/03	Assistente	Relacionamento com o cliente	Responder dúvida de andamento	09:10	09:25	15	WhatsApp	Sim	A	Linha de exemplo, apague
+02/03	Advogada	Produção de peças	Redigir minuta de recurso	10:00	11:40	100	Software jurídico	Não	A	Linha de exemplo, apague
+02/03	Assistente	Relacionamento com o cliente	Responder mensagens curtas (rajada)			48	WhatsApp	Sim	A	12 mensagens x 4 min. Linha de exemplo, apague

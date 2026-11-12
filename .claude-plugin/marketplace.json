@@ -1,0 +1,12 @@
+{
+  "name": "estudo",
+  "owner": { "name": "Guilherme Trindade" },
+  "plugins": [
+    {
+      "name": "inicio-automacao",
+      "source": "./inicio-automacao",
+      "description": "Estrutura o escritório de advocacia para a automação com IA, na ordem certa.",
+      "version": "0.3.1"
+    }
+  ]
+}

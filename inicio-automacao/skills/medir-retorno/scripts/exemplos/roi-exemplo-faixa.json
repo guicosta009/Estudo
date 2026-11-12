@@ -1,0 +1,15 @@
+{
+  "descricao": "EXEMPLO FICTÍCIO: só o setor-alvo, com a faixa mínima e máxima estimada a partir do POP. Valor da hora pelo custo do colaborador (método 3).",
+  "modo": "direto",
+  "metodo_valor_hora": "método 3, custo do colaborador",
+  "valor_hora": 40,
+  "ferramentas_mes": 200,
+  "horas_implantacao": 8,
+  "valor_hora_implantacao": 120,
+  "custos_unicos": 0,
+  "revisao_h_semana": 1.5,
+  "aproveitamento_pct": 70,
+  "setores": [
+    {"setor": "Relacionamento com o cliente", "horas_semana": 18, "reducao_pct": {"min": 20, "max": 35}, "origem": "estimado"}
+  ]
+}

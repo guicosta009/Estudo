@@ -1,0 +1,12 @@
+{
+  "Atendimento e triagem": {"incomodo": 4, "potencial": 4},
+  "Comercial": {"incomodo": 3, "potencial": 3},
+  "Produção de peças": {"incomodo": 4, "potencial": 2},
+  "Prazos e controladoria": {"incomodo": 4, "potencial": 4},
+  "Audiências e diligências": {"incomodo": 2, "potencial": 2},
+  "Financeiro e cobrança": {"incomodo": 3, "potencial": 4},
+  "Relacionamento com o cliente": {"incomodo": 3, "potencial": 4},
+  "Marketing e conteúdo": {"incomodo": 2, "potencial": 4},
+  "Gestão de equipe": {"incomodo": 2, "potencial": 2},
+  "Administrativo": {"incomodo": 3, "potencial": 3}
+}

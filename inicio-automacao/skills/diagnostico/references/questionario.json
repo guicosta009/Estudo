@@ -1,0 +1,695 @@
+{
+  "versao": "1.0",
+  "nome": "Diagnóstico de prontidão para automação",
+  "notas": [
+    "Fonte única das perguntas, opções, pontos, pesos, tetos, níveis, prioridades e setores do diagnóstico.",
+    "Índices de opção começam em 0, na ordem em que aparecem aqui.",
+    "Escolha única: vale o número 'pontos' da opção. Múltipla: (opções marcadas que não são exclusivas, limitadas ao teto) dividido pelo teto. Opção exclusiva dá 0.",
+    "Pergunta com 'pontua': false fica fora da conta.",
+    "Opção com 'solo': true é a 'Trabalho sozinho(a)', vale 0,5 e só é oferecida na trilha solo."
+  ],
+
+  "perfil": {
+    "id": "perfil",
+    "nome": "Seu escritório",
+    "pontua": false,
+    "intro": "Antes da nota, um retrato rápido. Este bloco não pontua: ele define a trilha e ajuda a ler o resultado.",
+    "perguntas": [
+      {
+        "id": "escritorio",
+        "texto": "Como o escritório deve aparecer nos documentos? Pode ser o nome ou um apelido.",
+        "tipo": "texto",
+        "opcional": true
+      },
+      {
+        "id": "porte",
+        "texto": "Quantas pessoas trabalham no escritório, contando você?",
+        "tipo": "unica",
+        "opcoes": [
+          {"rotulo": "Só eu, com ou sem estagiário ou secretária", "valor": "solo", "trilha": "solo"},
+          {"rotulo": "2 a 5 pessoas", "valor": "2-5", "trilha": "equipe"},
+          {"rotulo": "6 a 20 pessoas", "valor": "6-20", "trilha": "equipe"},
+          {"rotulo": "Mais de 20 pessoas", "valor": "20+", "trilha": "equipe"}
+        ]
+      },
+      {
+        "id": "apoio",
+        "texto": "Você conta com alguém de apoio?",
+        "tipo": "unica",
+        "so_quando": {"porte": "solo"},
+        "opcoes": [
+          {"rotulo": "Ninguém, só eu", "valor": "nenhum"},
+          {"rotulo": "Estagiário(a)", "valor": "estagiario"},
+          {"rotulo": "Secretária ou secretário", "valor": "secretaria"},
+          {"rotulo": "Estagiário(a) e secretária(o)", "valor": "estagiario-e-secretaria"}
+        ]
+      },
+      {
+        "id": "pessoas",
+        "texto": "Quem trabalha com você, por função? Exemplo: 2 advogadas, 1 estagiário, 1 secretária.",
+        "tipo": "texto",
+        "so_quando": {"trilha": "equipe"},
+        "opcional": true
+      },
+      {
+        "id": "papel",
+        "texto": "Qual é o seu papel?",
+        "tipo": "unica",
+        "opcoes": [
+          {"rotulo": "Titular ou sócio(a)"},
+          {"rotulo": "Advogado(a) associado(a) ou contratado(a)"},
+          {"rotulo": "Gestor(a), coordenador(a) ou controller"},
+          {"rotulo": "Advogado(a) autônomo(a), dividindo estrutura"},
+          {"rotulo": "Departamento jurídico de empresa"},
+          {"rotulo": "Estagiário(a), assistente ou outro"}
+        ]
+      },
+      {
+        "id": "areas",
+        "texto": "Em quais áreas o escritório atua?",
+        "dica": "Marque todas que se aplicam.",
+        "tipo": "multipla",
+        "opcoes": [
+          {"rotulo": "Trabalhista"},
+          {"rotulo": "Previdenciário"},
+          {"rotulo": "Família e sucessões"},
+          {"rotulo": "Consumidor"},
+          {"rotulo": "Cível em geral"},
+          {"rotulo": "Empresarial e societário"},
+          {"rotulo": "Tributário"},
+          {"rotulo": "Criminal"},
+          {"rotulo": "Imobiliário"},
+          {"rotulo": "Bancário"},
+          {"rotulo": "Saúde"},
+          {"rotulo": "Contratos e consultivo"},
+          {"rotulo": "Administrativo e licitações"},
+          {"rotulo": "Agro e ambiental"},
+          {"rotulo": "Digital, LGPD e tecnologia"},
+          {"rotulo": "Outra"}
+        ]
+      },
+      {
+        "id": "volume",
+        "texto": "Quantos processos ativos, mais ou menos?",
+        "tipo": "unica",
+        "opcoes": [
+          {"rotulo": "Até 50"},
+          {"rotulo": "51 a 200"},
+          {"rotulo": "201 a 500"},
+          {"rotulo": "501 a 1.500"},
+          {"rotulo": "Mais de 1.500"},
+          {"rotulo": "Atuo mais no consultivo"}
+        ]
+      },
+      {
+        "id": "conta_de_ia",
+        "texto": "Que tipo de conta de IA o escritório usa hoje?",
+        "tipo": "unica",
+        "opcoes": [
+          {"rotulo": "Pessoal gratuita", "valor": "pessoal-gratuita", "sugere_g2": 0},
+          {"rotulo": "Pessoal paga", "valor": "pessoal-paga", "sugere_g2": 1},
+          {"rotulo": "Profissional", "valor": "profissional", "sugere_g2": 3},
+          {"rotulo": "De equipe", "valor": "equipe", "sugere_g2": 3},
+          {"rotulo": "Mista: algumas profissionais, outras pessoais", "valor": "mista", "sugere_g2": 2},
+          {"rotulo": "Ainda não usamos IA", "valor": "nenhuma", "sugere_g2": 4}
+        ]
+      }
+    ]
+  },
+
+  "dimensoes": [
+    {
+      "id": "cultura",
+      "nome": "Cultura e liderança",
+      "peso": 14,
+      "intro": "Automação começa em quem decide. Aqui a gente olha para como o escritório decide, delega e reage ao novo.",
+      "recomendacao": "Escreva o código do escritório: como atendemos, como decidimos, o que nunca fazemos. Ele vira o primeiro arquivo da sua base e a régua para tudo que a IA produzir.",
+      "skill": "codigo-do-escritorio",
+      "perguntas": [
+        {"id": "c1", "texto": "Quem decide as mudanças no escritório?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Só eu, e muita coisa fica sem decidir por falta de tempo", "pontos": 0},
+          {"rotulo": "Só eu, mas decido rápido", "pontos": 0.4},
+          {"rotulo": "Eu decido ouvindo a equipe", "pontos": 0.7},
+          {"rotulo": "Cada área tem um responsável com autonomia para decidir", "pontos": 1},
+          {"rotulo": "Trabalho sozinho(a)", "pontos": 0.5, "solo": true}
+        ]},
+        {"id": "c2", "texto": "Quando você delega uma tarefa, o que costuma acontecer?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Não delego, acabo fazendo tudo", "pontos": 0},
+          {"rotulo": "Delego, mas refaço boa parte", "pontos": 0.25},
+          {"rotulo": "Delego com orientação falada e confiro tudo", "pontos": 0.55},
+          {"rotulo": "Delego com instrução escrita e um critério claro do que é bem feito", "pontos": 1},
+          {"rotulo": "Trabalho sozinho(a)", "pontos": 0.5, "solo": true}
+        ]},
+        {"id": "c3", "texto": "Quando surge uma ferramenta ou um jeito novo de trabalhar, a equipe:", "tipo": "unica", "opcoes": [
+          {"rotulo": "Resiste e volta ao jeito antigo", "pontos": 0},
+          {"rotulo": "Aceita, se eu cobrar", "pontos": 0.35},
+          {"rotulo": "Testa por conta própria", "pontos": 0.7},
+          {"rotulo": "Traz sugestões e melhorias", "pontos": 1},
+          {"rotulo": "Trabalho sozinho(a)", "pontos": 0.5, "solo": true}
+        ]},
+        {"id": "c4", "texto": "Com que frequência vocês param para olhar como o escritório está funcionando?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Nunca, a gente só apaga incêndio", "pontos": 0},
+          {"rotulo": "Quando dá problema", "pontos": 0.3},
+          {"rotulo": "Uma vez por mês, mais ou menos", "pontos": 0.7},
+          {"rotulo": "Tem rotina fixa, com pauta e números", "pontos": 1}
+        ]},
+        {"id": "c5", "texto": "Do seu tempo de trabalho, quanto vai para o operacional (peça, prazo, atendimento) e quanto para pensar o escritório?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Quase 100% operacional", "pontos": 0},
+          {"rotulo": "Uns 80% operacional", "pontos": 0.35},
+          {"rotulo": "Metade e metade", "pontos": 0.7},
+          {"rotulo": "Mais tempo pensando o escritório do que operando", "pontos": 1}
+        ]},
+        {"id": "c6", "texto": "O jeito de ser do escritório (como atende, o que valoriza, o que nunca faz) está escrito?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Não, nunca pensei nisso", "pontos": 0},
+          {"rotulo": "Está na minha cabeça", "pontos": 0.3},
+          {"rotulo": "Está escrito, mas ninguém consulta", "pontos": 0.6},
+          {"rotulo": "Está escrito e é usado para treinar quem chega", "pontos": 1}
+        ]}
+      ]
+    },
+    {
+      "id": "processos",
+      "nome": "Processos e POPs",
+      "peso": 17,
+      "intro": "POP é o procedimento operacional padrão: o passo a passo de cada setor. É exatamente isso que a IA vai executar depois.",
+      "recomendacao": "Pegue o setor-alvo e escreva o passo a passo atual, do jeito que é hoje. Depois, a skill escrever-pop transforma isso em fluxograma e POP.",
+      "skill": "escrever-pop",
+      "perguntas": [
+        {"id": "p1", "texto": "Se você ou seu principal colaborador ficar 15 dias fora, o escritório continua?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Para quase tudo, ninguém sabe como as coisas são feitas", "pontos": 0},
+          {"rotulo": "Alguém se vira, mas com muita perda", "pontos": 0.3},
+          {"rotulo": "Continua com falhas; parte está explicada em conversas e áudios", "pontos": 0.6},
+          {"rotulo": "Continua, porque o passo a passo está escrito", "pontos": 1}
+        ]},
+        {"id": "p2", "texto": "Quantos setores do escritório têm o passo a passo escrito (POP, checklist ou fluxograma)?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Nenhum", "pontos": 0},
+          {"rotulo": "Um", "pontos": 0.35},
+          {"rotulo": "Dois ou três", "pontos": 0.65},
+          {"rotulo": "Quase todos", "pontos": 1}
+        ]},
+        {"id": "p3", "texto": "Do primeiro contato do cliente até o protocolo, como o caso anda?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Cada um faz do seu jeito", "pontos": 0},
+          {"rotulo": "Existe um jeito, mas está na cabeça de quem faz", "pontos": 0.3},
+          {"rotulo": "Existe um fluxo combinado, escrito em parte", "pontos": 0.65},
+          {"rotulo": "O fluxo está desenhado, com responsável em cada etapa", "pontos": 1}
+        ]},
+        {"id": "p4", "texto": "Onde vocês controlam prazos e tarefas?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Agenda de papel ou memória", "pontos": 0},
+          {"rotulo": "Planilha, e-mail ou WhatsApp", "pontos": 0.3},
+          {"rotulo": "Software jurídico, mas cada um usa de um jeito", "pontos": 0.65},
+          {"rotulo": "Software jurídico usado por todos, com rotina definida", "pontos": 1}
+        ]},
+        {"id": "p5", "texto": "Os modelos de petição e documentos são padronizados?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Cada um tem os seus", "pontos": 0},
+          {"rotulo": "Existe uma pasta, mas desatualizada", "pontos": 0.3},
+          {"rotulo": "Pasta organizada por área", "pontos": 0.7},
+          {"rotulo": "Biblioteca revisada, com responsável por atualizar", "pontos": 1}
+        ]}
+      ]
+    },
+    {
+      "id": "base",
+      "nome": "Base de conhecimento",
+      "peso": 13,
+      "intro": "É o que a IA consulta para trabalhar do seu jeito: modelos, teses, checklists, respostas que já deram certo.",
+      "recomendacao": "Reúna modelos, teses e checklists numa estrutura única de pastas por área. É isso que a IA vai consultar para trabalhar do seu jeito.",
+      "skill": "montar-base",
+      "perguntas": [
+        {"id": "b1", "texto": "Onde ficam as teses, jurisprudências e argumentos que já deram certo?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Na memória", "pontos": 0},
+          {"rotulo": "Espalhados em processos antigos", "pontos": 0.3},
+          {"rotulo": "Numa pasta ou drive organizado", "pontos": 0.7},
+          {"rotulo": "Numa base com busca, atualizada com frequência", "pontos": 1}
+        ]},
+        {"id": "b2", "texto": "Chegou um caso parecido com um antigo. Quanto tempo leva para achar o material?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Mais de uma hora, ou desisto e faço do zero", "pontos": 0},
+          {"rotulo": "De 30 minutos a 1 hora", "pontos": 0.35},
+          {"rotulo": "De 10 a 30 minutos", "pontos": 0.7},
+          {"rotulo": "Menos de 10 minutos", "pontos": 1}
+        ]},
+        {"id": "b3", "texto": "O que já está documentado hoje?", "dica": "Marque todos que existem por escrito.", "tipo": "multipla", "teto": 6, "opcoes": [
+          {"rotulo": "Modelos de petição"},
+          {"rotulo": "Modelos de contrato e procuração"},
+          {"rotulo": "Roteiro do atendimento inicial"},
+          {"rotulo": "Respostas para as perguntas frequentes dos clientes"},
+          {"rotulo": "Teses organizadas por área"},
+          {"rotulo": "Checklist de documentos por tipo de caso"},
+          {"rotulo": "Tabela de honorários"},
+          {"rotulo": "Manual para quem chega na equipe"},
+          {"rotulo": "Tom de voz com o cliente"},
+          {"rotulo": "Scripts de WhatsApp e e-mail"},
+          {"rotulo": "Nenhum desses", "exclusiva": true}
+        ]},
+        {"id": "b4", "texto": "Você já usa documentos do escritório dentro de uma IA (Projetos no Claude, NotebookLM, GPTs)?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Não", "pontos": 0},
+          {"rotulo": "Testei uma vez", "pontos": 0.3},
+          {"rotulo": "Uso em uma ou duas áreas", "pontos": 0.7},
+          {"rotulo": "É a base do dia a dia", "pontos": 1}
+        ]}
+      ]
+    },
+    {
+      "id": "ia",
+      "nome": "Uso de IA",
+      "peso": 13,
+      "intro": "Sem julgamento aqui. O objetivo é saber de onde o escritório parte.",
+      "recomendacao": "Troque as perguntas soltas por um Projeto com instruções e documentos do escritório. Comece por uma tarefa que você repete toda semana.",
+      "skill": "codigo-do-escritorio",
+      "perguntas": [
+        {"id": "i1", "texto": "Com que frequência você usa IA no trabalho?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Nunca ou quase nunca", "pontos": 0},
+          {"rotulo": "Algumas vezes por mês", "pontos": 0.3},
+          {"rotulo": "Algumas vezes por semana", "pontos": 0.65},
+          {"rotulo": "Todos os dias", "pontos": 1}
+        ]},
+        {"id": "i2", "texto": "Quais ferramentas você usa?", "dica": "Marque todas.", "tipo": "multipla", "teto": 3, "opcoes": [
+          {"rotulo": "Claude"},
+          {"rotulo": "ChatGPT"},
+          {"rotulo": "Gemini"},
+          {"rotulo": "NotebookLM"},
+          {"rotulo": "Microsoft Copilot"},
+          {"rotulo": "Perplexity"},
+          {"rotulo": "IA de software jurídico"},
+          {"rotulo": "Grok"},
+          {"rotulo": "DeepSeek"},
+          {"rotulo": "Automação (Make, Zapier, n8n)"},
+          {"rotulo": "Outra"},
+          {"rotulo": "Nenhuma", "exclusiva": true}
+        ]},
+        {"id": "i3", "texto": "Para que você usa IA hoje?", "dica": "Marque todas.", "tipo": "multipla", "teto": 6, "opcoes": [
+          {"rotulo": "Pesquisa de jurisprudência"},
+          {"rotulo": "Redação de peças"},
+          {"rotulo": "Análise de documentos e provas"},
+          {"rotulo": "Resumo de processos"},
+          {"rotulo": "Contratos"},
+          {"rotulo": "Cálculos"},
+          {"rotulo": "Atendimento e comunicação com cliente"},
+          {"rotulo": "Marketing e conteúdo"},
+          {"rotulo": "Gestão e organização interna"},
+          {"rotulo": "Preparação de audiência"},
+          {"rotulo": "Automações que rodam sozinhas"},
+          {"rotulo": "Ainda não uso", "exclusiva": true}
+        ]},
+        {"id": "i4", "texto": "Qual frase descreve melhor o seu uso hoje?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Faço perguntas soltas quando lembro", "pontos": 0.1},
+          {"rotulo": "Tenho prompts que reaproveito", "pontos": 0.4},
+          {"rotulo": "Tenho projetos com instruções e documentos do escritório", "pontos": 0.75},
+          {"rotulo": "Tenho fluxos conectados (skills, agentes, integrações)", "pontos": 1},
+          {"rotulo": "Ainda não uso", "pontos": 0}
+        ]},
+        {"id": "i5", "texto": "E a equipe, usa IA?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Ninguém além de mim", "pontos": 0},
+          {"rotulo": "Alguns, por conta própria", "pontos": 0.35},
+          {"rotulo": "A maioria, mas sem padrão", "pontos": 0.6},
+          {"rotulo": "Todos, com orientações comuns", "pontos": 1},
+          {"rotulo": "Trabalho sozinho(a)", "pontos": 0.5, "solo": true}
+        ]}
+      ]
+    },
+    {
+      "id": "governanca",
+      "nome": "Governança e proteção de dados",
+      "peso": 11,
+      "intro": "Advogado lida com sigilo. Automação sem regra clara vira risco para o cliente e para o escritório perante a OAB.",
+      "recomendacao": "Escreva numa página o que pode e o que não pode ir para a IA, migre para contas profissionais e defina quem revisa antes de sair do escritório.",
+      "skill": "regra-de-uso-de-ia",
+      "perguntas": [
+        {"id": "g1", "texto": "Existe uma regra escrita sobre o que pode e o que não pode ir para a IA?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Não", "pontos": 0},
+          {"rotulo": "Existe um combinado falado", "pontos": 0.3},
+          {"rotulo": "Está escrita, mas pouca gente conhece", "pontos": 0.6},
+          {"rotulo": "Política escrita, conhecida por todos e revisada", "pontos": 1}
+        ]},
+        {"id": "g2", "texto": "As contas de IA usadas no escritório são:", "tipo": "unica", "opcoes": [
+          {"rotulo": "Pessoais e gratuitas", "pontos": 0},
+          {"rotulo": "Pessoais pagas", "pontos": 0.4},
+          {"rotulo": "Algumas profissionais, outras pessoais", "pontos": 0.6},
+          {"rotulo": "Profissionais, com controle de acesso e sem uso dos dados para treino", "pontos": 1},
+          {"rotulo": "Não usamos IA", "pontos": 0}
+        ]},
+        {"id": "g3", "texto": "Antes de colocar um documento de cliente na IA, vocês:", "tipo": "unica", "opcoes": [
+          {"rotulo": "Colocam do jeito que está", "pontos": 0},
+          {"rotulo": "Às vezes tiram nomes e dados", "pontos": 0.35},
+          {"rotulo": "Sempre anonimizam", "pontos": 0.75},
+          {"rotulo": "Seguem um procedimento e usam ferramenta configurada para não reter dados", "pontos": 1},
+          {"rotulo": "Não colocamos documento de cliente na IA", "pontos": 0.6}
+        ]},
+        {"id": "g4", "texto": "Como está a adequação do escritório à LGPD?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Nunca olhamos para isso", "pontos": 0},
+          {"rotulo": "Sei que preciso, mas não comecei", "pontos": 0.2},
+          {"rotulo": "Parcial: termos e cláusulas em contrato", "pontos": 0.6},
+          {"rotulo": "Adequado: mapeamento, encarregado, cláusulas e registros", "pontos": 1}
+        ]},
+        {"id": "g5", "texto": "O cliente sabe que a IA participa do trabalho?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Não", "pontos": 0},
+          {"rotulo": "Nunca pensei nisso", "pontos": 0.1},
+          {"rotulo": "Alguns sabem", "pontos": 0.5},
+          {"rotulo": "Está previsto em contrato ou comunicado com transparência", "pontos": 1}
+        ]},
+        {"id": "g6", "texto": "Quem confere o que a IA produz antes de sair do escritório?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Ninguém, vai direto", "pontos": 0},
+          {"rotulo": "Confere quando dá tempo", "pontos": 0.3},
+          {"rotulo": "Sempre alguém confere", "pontos": 0.7},
+          {"rotulo": "Revisão obrigatória, com checklist de citações, jurisprudência e dados", "pontos": 1}
+        ]}
+      ]
+    },
+    {
+      "id": "comercial",
+      "nome": "Comercial e marketing",
+      "peso": 11,
+      "intro": "Como o cliente chega, como o lead é atendido e o que acontece com quem não fecha. É aqui que estão algumas das automações que devolvem horas mais rápido.",
+      "recomendacao": "Escreva o roteiro de triagem do primeiro contato e um modelo de proposta por tipo de caso. São as duas peças que a IA precisa para responder lead e montar proposta no mesmo dia.",
+      "skill": "escrever-pop",
+      "perguntas": [
+        {"id": "cm0", "texto": "De onde vêm os clientes hoje?", "dica": "Marque todas as origens. Esta pergunta não pontua.", "tipo": "multipla", "pontua": false, "opcoes": [
+          {"rotulo": "Indicação de clientes"},
+          {"rotulo": "Indicação de advogados ou parceiros"},
+          {"rotulo": "Instagram"},
+          {"rotulo": "Google (busca e perfil da empresa)"},
+          {"rotulo": "Tráfego pago"},
+          {"rotulo": "Site ou blog"},
+          {"rotulo": "YouTube ou TikTok"},
+          {"rotulo": "LinkedIn"},
+          {"rotulo": "WhatsApp e listas de transmissão"},
+          {"rotulo": "Clientes antigos que voltam"},
+          {"rotulo": "Sindicatos, associações ou empresas parceiras"},
+          {"rotulo": "Outra"}
+        ]},
+        {"id": "cm1", "texto": "Quando um possível cliente chama, o que acontece?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Quem estiver livre responde, quando dá", "pontos": 0},
+          {"rotulo": "Alguém responde, mas sem roteiro nem prazo", "pontos": 0.3},
+          {"rotulo": "Tem um roteiro de triagem, mas cada um usa de um jeito", "pontos": 0.65},
+          {"rotulo": "Roteiro de triagem, prazo de resposta e responsável definido", "pontos": 1}
+        ]},
+        {"id": "cm2", "texto": "Como sai a proposta de honorários?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Cada vez de um jeito, na conversa", "pontos": 0},
+          {"rotulo": "Tenho um modelo, mas monto na mão e demora", "pontos": 0.35},
+          {"rotulo": "Modelo por tipo de caso, enviado em até dois dias", "pontos": 0.7},
+          {"rotulo": "Modelo padrão por tipo de caso, enviado no mesmo dia", "pontos": 1}
+        ]},
+        {"id": "cm3", "texto": "E quem consultou e não fechou?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Ninguém volta a falar com essa pessoa", "pontos": 0},
+          {"rotulo": "Às vezes alguém lembra de chamar", "pontos": 0.3},
+          {"rotulo": "Existe uma lista e algum retorno, mas sem rotina", "pontos": 0.6},
+          {"rotulo": "Follow-up com cadência definida e registro de cada contato", "pontos": 1}
+        ]},
+        {"id": "cm4", "texto": "Onde ficam os contatos de leads e clientes?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Na agenda do celular e no WhatsApp", "pontos": 0},
+          {"rotulo": "Numa planilha", "pontos": 0.4},
+          {"rotulo": "Num CRM ou software, mas desatualizado", "pontos": 0.65},
+          {"rotulo": "Num CRM atualizado, com a etapa de cada negociação", "pontos": 1}
+        ]},
+        {"id": "cm5", "texto": "Como é a produção de conteúdo do escritório?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Não produzimos conteúdo", "pontos": 0},
+          {"rotulo": "Posto quando sobra tempo", "pontos": 0.3},
+          {"rotulo": "Tem frequência, mas sem planejamento", "pontos": 0.55},
+          {"rotulo": "Calendário, rotina de produção e revisão ética (Provimento 205/2021 do CFOAB)", "pontos": 1}
+        ]}
+      ]
+    },
+    {
+      "id": "equipe",
+      "nome": "Equipe",
+      "peso": 7,
+      "intro": "Quem vai rodar o escritório automatizado junto com você.",
+      "recomendacao": "Grave a próxima explicação que você der a alguém. Esse vídeo, transcrito pela IA, já é o primeiro material de treinamento.",
+      "recomendacao_solo": "Grave a explicação que você daria a quem chegar amanhã para ajudar no escritório. Transcrita pela IA, ela já é o primeiro material de treinamento da sua primeira contratação.",
+      "skill": "implantar-a-mudanca",
+      "perguntas": [
+        {"id": "e1", "texto": "Quem chega novo no escritório aprende como?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Olhando os outros", "pontos": 0},
+          {"rotulo": "Alguém explica no dia a dia", "pontos": 0.35},
+          {"rotulo": "Existe um material básico", "pontos": 0.7},
+          {"rotulo": "Existe um processo de integração, com material e prazo", "pontos": 1},
+          {"rotulo": "Trabalho sozinho(a)", "pontos": 0.5, "solo": true}
+        ]},
+        {"id": "e2", "texto": "Alguém recebeu treinamento em IA?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Ninguém", "pontos": 0},
+          {"rotulo": "Só eu", "pontos": 0.4},
+          {"rotulo": "Eu e mais algumas pessoas", "pontos": 0.7},
+          {"rotulo": "Toda a equipe, com atualização frequente", "pontos": 1}
+        ]},
+        {"id": "e3", "texto": "Existe alguém responsável por tecnologia e inovação?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Ninguém", "pontos": 0},
+          {"rotulo": "Eu, no tempo que sobra", "pontos": 0.35},
+          {"rotulo": "Uma pessoa, como parte das tarefas dela", "pontos": 0.7},
+          {"rotulo": "Uma pessoa dedicada ou um parceiro externo", "pontos": 1}
+        ]}
+      ]
+    },
+    {
+      "id": "investimento",
+      "nome": "Investimento",
+      "peso": 5,
+      "intro": "Quanto vai para ferramentas hoje e como você enxerga esse gasto.",
+      "recomendacao": "Compare o que você gasta com ferramentas com o valor da sua hora. Por exemplo: se uma assinatura devolve duas horas no mês, ela já se pagou.",
+      "skill": "medir-retorno",
+      "perguntas": [
+        {"id": "v1", "texto": "Quanto o escritório gasta por mês com assinaturas de IA?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Nada", "pontos": 0},
+          {"rotulo": "Até R$ 100", "pontos": 0.35},
+          {"rotulo": "De R$ 101 a R$ 300", "pontos": 0.65},
+          {"rotulo": "De R$ 301 a R$ 1.000", "pontos": 0.9},
+          {"rotulo": "Mais de R$ 1.000", "pontos": 1}
+        ]},
+        {"id": "v2", "texto": "E com software jurídico e de gestão, somando tudo?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Nada", "pontos": 0},
+          {"rotulo": "Até R$ 300", "pontos": 0.35},
+          {"rotulo": "De R$ 301 a R$ 1.000", "pontos": 0.65},
+          {"rotulo": "De R$ 1.001 a R$ 3.000", "pontos": 0.9},
+          {"rotulo": "Mais de R$ 3.000", "pontos": 1}
+        ]},
+        {"id": "v3", "texto": "Como você enxerga esse gasto?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Custo que tento cortar", "pontos": 0},
+          {"rotulo": "Necessário, mas não sei se volta", "pontos": 0.35},
+          {"rotulo": "Investimento, mas não meço o retorno", "pontos": 0.65},
+          {"rotulo": "Investimento com retorno medido em horas ou faturamento", "pontos": 1}
+        ]}
+      ]
+    },
+    {
+      "id": "medicao",
+      "nome": "Medição",
+      "peso": 9,
+      "intro": "Sem número, não dá para saber o que automatizar primeiro nem provar que funcionou.",
+      "recomendacao": "Por uma semana, anote as horas dos três setores que mais pesam. Sem esse número não dá para saber o que automatizar primeiro nem provar o resultado.",
+      "skill": "mapear-setores",
+      "perguntas": [
+        {"id": "m1", "texto": "Você sabe quantas horas por semana cada setor consome?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Não faço ideia", "pontos": 0},
+          {"rotulo": "Tenho uma noção", "pontos": 0.3},
+          {"rotulo": "Estimo com alguma base", "pontos": 0.65},
+          {"rotulo": "Meço com sistema ou registro de horas", "pontos": 1}
+        ]},
+        {"id": "m2", "texto": "Quais números você acompanha?", "dica": "Marque todos.", "tipo": "multipla", "teto": 4, "opcoes": [
+          {"rotulo": "Faturamento mensal"},
+          {"rotulo": "Novos clientes por mês"},
+          {"rotulo": "Consultas que viram contrato"},
+          {"rotulo": "Tempo médio por peça"},
+          {"rotulo": "Prazos cumpridos e perdidos"},
+          {"rotulo": "Ticket médio"},
+          {"rotulo": "Custo por setor"},
+          {"rotulo": "Satisfação do cliente"},
+          {"rotulo": "Inadimplência"},
+          {"rotulo": "Nenhum", "exclusiva": true}
+        ]},
+        {"id": "m3", "texto": "Você já calculou quanto vale uma hora sua?", "tipo": "unica", "opcoes": [
+          {"rotulo": "Não", "pontos": 0},
+          {"rotulo": "Mais ou menos", "pontos": 0.35},
+          {"rotulo": "Sim", "pontos": 0.7},
+          {"rotulo": "Sim, e uso isso para decidir o que delegar ou automatizar", "pontos": 1}
+        ]}
+      ]
+    }
+  ],
+
+  "niveis": [
+    {
+      "min": 0, "max": 25, "nome": "Zero",
+      "frase": "O escritório roda na cabeça das pessoas.",
+      "texto": "Hoje quase tudo depende de memória, e muita coisa depende de você. Automatizar agora seria acelerar a bagunça. A boa notícia: é nesse nível que cada passo dá mais retorno.",
+      "prioridades": [
+        {"titulo": "Escreva como o seu setor-alvo funciona hoje.", "detalhe": "Só o passo a passo, do jeito que acontece. Depois, a skill escrever-pop transforma isso em POP.", "skill": "escrever-pop"},
+        {"titulo": "Defina uma regra simples do que pode e do que não pode ir para a IA.", "detalhe": "Uma página resolve. Sigilo vem antes de qualquer automação.", "skill": "regra-de-uso-de-ia"},
+        {"titulo": "Junte numa pasta única os 10 modelos que você mais usa.", "detalhe": "É o embrião da sua base de conhecimento.", "skill": "montar-base"}
+      ],
+      "cobertas": ["processos", "governanca", "base"]
+    },
+    {
+      "min": 26, "max": 50, "nome": "Base",
+      "frase": "Existe organização, mas ela não está escrita.",
+      "texto": "O escritório funciona, só que funciona porque as pessoas sabem o caminho. Falta tirar isso da cabeça e colocar no papel, que é onde a IA consegue ler.",
+      "prioridades": [
+        {"titulo": "Transforme o jeito que já funciona em POP, começando pelo setor-alvo.", "detalhe": "O trabalho é registrar o que já existe, sem inventar processo novo.", "skill": "escrever-pop"},
+        {"titulo": "Organize a base de conhecimento por área e leve para um Projeto no Claude.", "detalhe": "Modelos, teses e checklists num lugar só.", "skill": "montar-base"},
+        {"titulo": "Comece a medir as horas de dois ou três setores.", "detalhe": "Uma semana de anotação já mostra onde está o gargalo.", "skill": "mapear-setores"}
+      ],
+      "cobertas": ["processos", "base", "medicao"]
+    },
+    {
+      "min": 51, "max": 75, "nome": "Estrutura",
+      "frase": "Processos escritos em parte, IA em uso pontual.",
+      "texto": "Você já tem chão firme. O próximo passo é fechar as lacunas dos setores críticos e padronizar o uso de IA para que ele não dependa de quem está usando.",
+      "prioridades": [
+        {"titulo": "Complete os POPs dos setores críticos e nomeie um responsável por cada um.", "detalhe": "Processo sem dono desatualiza rápido.", "detalhe_solo": "No solo, o dono é você: anote em cada POP a data da próxima revisão.", "skill": "escrever-pop"},
+        {"titulo": "Padronize o uso de IA na equipe.", "detalhe": "Projetos com instruções comuns, prompts compartilhados e revisão obrigatória.", "detalhe_solo": "No solo, padronize o seu próprio uso: um Projeto com o código do escritório, prompts guardados e revisão com checklist.", "skill": "regra-de-uso-de-ia"},
+        {"titulo": "Escolha o primeiro fluxo para automatizar de ponta a ponta.", "detalhe": "O setor-alvo é o candidato natural.", "skill": "desenhar-automacao"}
+      ],
+      "cobertas": ["processos", "ia"]
+    },
+    {
+      "min": 76, "max": 100, "nome": "Automação",
+      "frase": "Pronto para automatizar.",
+      "texto": "Cultura, processos e base estão no lugar. Agora é conectar a IA ao fluxo real do escritório e medir quantas horas ela devolve.",
+      "prioridades": [
+        {"titulo": "Desenhe a automação dos três fluxos que mais consomem horas.", "detalhe": "Comece pelo setor-alvo e documente o antes e o depois.", "skill": "desenhar-automacao"},
+        {"titulo": "Conecte a IA às ferramentas do escritório.", "detalhe": "Agenda, e-mail, drive, CRM e software jurídico. Quais conexões existem: conferir na configuração da conta.", "skill": "desenhar-automacao"},
+        {"titulo": "Meça as horas devolvidas e decida onde reinvestir.", "detalhe": "Estratégia, captação, relacionamento com o cliente.", "skill": "medir-retorno"}
+      ],
+      "cobertas": []
+    }
+  ],
+
+  "atencao": {
+    "regra": "Entram as dimensões com percentual menor que 60%, em ordem crescente de percentual, no máximo 3. Ficam de fora as dimensões que as prioridades do nível já cobrem (campo 'cobertas' de cada nível). Empate de percentual: vale a ordem das dimensões neste arquivo.",
+    "limite_pct": 0.6,
+    "maximo": 3
+  },
+
+  "alertas": [
+    {"tipo": "perfil", "campo": "conta_de_ia", "valores": ["pessoal-gratuita"], "texto": "Conta pessoal gratuita serve só para teste com dado fictício. Dado de cliente só entra em conta profissional ou de equipe, com o tratamento de dados conferido na configuração da conta."},
+    {"tipo": "resposta", "pergunta": "g2", "opcoes": [0], "texto": "Conta pessoal gratuita serve só para teste com dado fictício. Dado de cliente só entra em conta profissional ou de equipe, com o tratamento de dados conferido na configuração da conta."},
+    {"tipo": "resposta", "pergunta": "g3", "opcoes": [0], "texto": "Documento de cliente vai para a IA do jeito que está. Até existir a regra de uso, anonimize antes (nome por [CLIENTE], CPF por [DOC], processo por [PROCESSO]) e use só conta profissional. Laudo completo, dado de criança ou adolescente e processo em segredo de justiça não entram sem autorização expressa."},
+    {"tipo": "resposta", "pergunta": "g6", "opcoes": [0, 1], "texto": "O que a IA produz pode sair sem conferência. Tudo o que sai do escritório passa por revisão humana, com objeto: citações na fonte, nomes, datas, valores, prazos e tom."}
+  ],
+
+  "setores": [
+    {"id": "atendimento", "nome": "Atendimento e triagem", "exemplos": "primeiro contato, consulta inicial"},
+    {"id": "comercial", "nome": "Comercial", "exemplos": "proposta, contrato, fechamento"},
+    {"id": "producao", "nome": "Produção de peças", "exemplos": "petições, recursos, pareceres"},
+    {"id": "prazos", "nome": "Prazos e controladoria", "exemplos": "publicações, intimações, agenda"},
+    {"id": "audiencias", "nome": "Audiências e diligências", "exemplos": "preparo, deslocamento, atas"},
+    {"id": "financeiro", "nome": "Financeiro e cobrança", "exemplos": "honorários, boletos, inadimplência"},
+    {"id": "relacionamento", "nome": "Relacionamento com o cliente", "exemplos": "atualizações, dúvidas, WhatsApp"},
+    {"id": "marketing", "nome": "Marketing e conteúdo", "exemplos": "redes sociais, site, anúncios"},
+    {"id": "equipe", "nome": "Gestão de equipe", "exemplos": "contratação, treinamento, rotina"},
+    {"id": "administrativo", "nome": "Administrativo", "exemplos": "documentos, protocolos, arquivo"}
+  ],
+
+  "faixas_horas": [
+    {"rotulo": "Não temos", "valor": 0},
+    {"rotulo": "1 a 3 h", "valor": 2},
+    {"rotulo": "4 a 8 h", "valor": 6},
+    {"rotulo": "9 a 15 h", "valor": 12},
+    {"rotulo": "16 a 25 h", "valor": 20},
+    {"rotulo": "26 h ou mais", "valor": 30}
+  ],
+
+  "incomodo": [
+    {"valor": 1, "texto": "Quase não lembro que existe."},
+    {"valor": 2, "texto": "Dá trabalho, mas anda sozinho."},
+    {"valor": 3, "texto": "Incomoda toda semana, alguém sempre reclama."},
+    {"valor": 4, "texto": "Gera retrabalho, atraso ou hora extra com frequência."},
+    {"valor": 5, "texto": "Cliente reclama, prazo fica em risco ou tira o seu sono."}
+  ],
+
+  "setor_alvo": {
+    "regra": "Pontuação = horas (valor da faixa) × incômodo (ou 1, se faltar). Setores com 0 h ficam fora. Ordem decrescente de pontuação; no empate, ganha o setor com mais horas; persistindo o empate, vale a ordem dos setores neste arquivo. Mostrar os 5 primeiros e o total de horas mapeadas.",
+    "top": 5,
+    "gargalo_max_caracteres": 280,
+    "pergunta_gargalo": "Em uma frase: qual é o maior gargalo do seu escritório hoje?"
+  },
+
+  "quiz_modelo": {
+    "regra": "Se a opção aponta para 1 modelo, ele ganha 2 pontos. Se aponta para vários, cada um ganha 1. Resultado: o modelo com mais pontos. Mostrar também o segundo se ele tiver pontos e a diferença for de até 2 (escritório com traços de dois modelos). Desempate pela ordem da lista 'modelos'.",
+    "diferenca_hibrido": 2,
+    "perguntas": [
+      {"id": "q1", "texto": "Quantas pessoas trabalham no escritório, contando você?", "opcoes": [
+        {"rotulo": "Só eu, às vezes com estagiário ou secretária", "modelos": ["solo"]},
+        {"rotulo": "De 2 a 10 pessoas, sem departamentos separados", "modelos": ["boutique", "consultivo", "digital"]},
+        {"rotulo": "Mais de 10, com áreas ou departamentos", "modelos": ["full", "volume"]}
+      ]},
+      {"id": "q2", "texto": "Como é a sua carteira de casos?", "opcoes": [
+        {"rotulo": "Poucos casos, cada um tratado quase como um projeto", "modelos": ["boutique", "consultivo"]},
+        {"rotulo": "Dezenas de casos, de tipos variados", "modelos": ["full", "solo"]},
+        {"rotulo": "Centenas de casos muito parecidos entre si", "modelos": ["volume", "digital"]},
+        {"rotulo": "Muitos atos pequenos em processos de outros escritórios", "modelos": ["correspondencia"]}
+      ]},
+      {"id": "q3", "texto": "Como o cliente chega até você, na maioria das vezes?", "opcoes": [
+        {"rotulo": "Indicação ou reputação técnica no meu nicho", "modelos": ["boutique", "solo"]},
+        {"rotulo": "Empresas que fecham contrato contínuo comigo", "modelos": ["consultivo"]},
+        {"rotulo": "Internet: conteúdo, anúncio, busca no Google", "modelos": ["digital"]},
+        {"rotulo": "Outros escritórios me contratam para um ato", "modelos": ["correspondencia"]},
+        {"rotulo": "Um ou poucos clientes grandes que mandam muitos processos", "modelos": ["volume"]},
+        {"rotulo": "Por várias frentes, cada área com a sua origem", "modelos": ["full"]}
+      ]},
+      {"id": "q4", "texto": "Como você cobra, na maior parte dos casos?", "opcoes": [
+        {"rotulo": "Êxito, em muitos casos parecidos", "modelos": ["volume", "digital"]},
+        {"rotulo": "Honorário alto e sob medida para cada caso", "modelos": ["boutique"]},
+        {"rotulo": "Mensalidade fixa por cliente (partido)", "modelos": ["consultivo"]},
+        {"rotulo": "Por ato ou diligência", "modelos": ["correspondencia"]},
+        {"rotulo": "Depende muito da área e do caso", "modelos": ["full", "solo"]}
+      ]},
+      {"id": "q5", "texto": "Onde está a maior parte do seu dia?", "opcoes": [
+        {"rotulo": "Fazendo um pouco de tudo: atendo, peticiono, cobro, posto", "modelos": ["solo"]},
+        {"rotulo": "Estudando e escrevendo peças ou pareceres sob medida", "modelos": ["boutique"]},
+        {"rotulo": "Respondendo dúvida de cliente empresa e revisando contrato", "modelos": ["consultivo"]},
+        {"rotulo": "Gerindo fila de prazo e conferindo peça padronizada", "modelos": ["volume"]},
+        {"rotulo": "Atendendo lead que chegou pela internet e tentando converter", "modelos": ["digital"]},
+        {"rotulo": "Na pauta: audiência, protocolo, cópia de processo", "modelos": ["correspondencia"]},
+        {"rotulo": "Coordenando gente e áreas diferentes", "modelos": ["full"]}
+      ]},
+      {"id": "q6", "texto": "Qual frase mais parece com a sua semana?", "opcoes": [
+        {"rotulo": "\"Se eu parar, o escritório para.\"", "modelos": ["solo"]},
+        {"rotulo": "\"Tem mais processo do que gente para cumprir prazo.\"", "modelos": ["volume"]},
+        {"rotulo": "\"Cada área faz de um jeito e ninguém conversa.\"", "modelos": ["full"]},
+        {"rotulo": "\"O cliente paga caro e espera o sócio em tudo.\"", "modelos": ["boutique"]},
+        {"rotulo": "\"A empresa cliente manda dúvida o dia inteiro, por todo canal.\"", "modelos": ["consultivo"]},
+        {"rotulo": "\"Chega muito lead e pouco vira contrato.\"", "modelos": ["digital"]},
+        {"rotulo": "\"A demanda chega em cima da hora e com informação pela metade.\"", "modelos": ["correspondencia"]}
+      ]}
+    ],
+    "modelos": [
+      {"id": "full", "perfil": "full-service", "nome": "Full service", "setor_alvo": "Prazos e controladoria", "alternativo": "Atendimento e triagem, se a triagem entre áreas for o caos maior", "primeiro_passo": "Padronize o controle de prazos que todas as áreas usam, com uma regra de distribuição escrita.", "mistura_sah": "Médio peso do H. S na classificação e distribuição de publicações, com regra escrita.", "tipo_de_base": "Modelos únicos de documentos comuns às áreas, numa base só.", "risco_principal": "Conflito de interesses entre áreas e cada departamento com a sua regra de IA."},
+      {"id": "boutique", "perfil": "boutique", "nome": "Boutique", "setor_alvo": "Produção de peças", "alternativo": "Comercial, se fechar contrato trava", "primeiro_passo": "Leve as suas melhores peças e teses para a base de conhecimento e use a IA como Auxílio na pesquisa e na primeira minuta.", "mistura_sah": "Vive de A. Peso do H alto: o cliente paga pelo julgamento do sócio.", "tipo_de_base": "Teses, critérios e peças padrão ouro.", "risco_principal": "Sigilo estratégico e citação inventada."},
+      {"id": "volume", "perfil": "volume", "nome": "Contencioso de volume", "setor_alvo": "Prazos e controladoria", "alternativo": "Produção de peças, logo atrás", "primeiro_passo": "Escreva a regra de classificação das publicações e teste a IA com uma amostra antes de escalar.", "mistura_sah": "Aceita mais S. Peso do H baixo nos passos e alto na estratégia.", "tipo_de_base": "Modelos e regras de classificação.", "risco_principal": "O erro repetido mil vezes."},
+      {"id": "solo", "perfil": "solo", "nome": "Advogado solo ou autônomo", "setor_alvo": "Relacionamento com o cliente", "alternativo": "Atendimento e triagem, se entra pouca gente", "primeiro_passo": "Tire o WhatsApp do improviso: respostas-modelo, atualização de andamento e hora marcada para responder.", "mistura_sah": "Muito A, com peso do H alto: aceitar caso, definir preço e dar notícia ruim continuam com você.", "tipo_de_base": "Perguntas frequentes com respostas-modelo e o código do escritório.", "risco_principal": "Depender de uma pessoa, e a tentação da conta pessoal."},
+      {"id": "consultivo", "perfil": "consultivo", "nome": "Consultivo e partido mensal", "setor_alvo": "Relacionamento com o cliente", "alternativo": "Produção de peças, com a revisão de contratos", "primeiro_passo": "Crie uma fila única de demandas e um relatório mensal do que foi feito para cada cliente.", "mistura_sah": "Vive de A. Peso do H médio.", "tipo_de_base": "Checklist de revisão de contrato e respostas já aprovadas, separadas por cliente.", "risco_principal": "Misturar informação de clientes."},
+      {"id": "digital", "perfil": "digital", "nome": "Escritório digital de nicho", "setor_alvo": "Atendimento e triagem", "alternativo": "Comercial, logo atrás", "primeiro_passo": "Escreva as perguntas de qualificação e a lista de documentos por tipo de caso.", "mistura_sah": "S na primeira resposta e na conferência de documentos. Peso do H médio.", "tipo_de_base": "Roteiros de triagem e respostas.", "risco_principal": "A publicidade e a promessa de resultado."},
+      {"id": "correspondencia", "perfil": "correspondencia", "nome": "Parcerias e correspondência", "setor_alvo": "Audiências e diligências", "alternativo": "Financeiro e cobrança, se a cobrança acumula", "primeiro_passo": "Padronize o recebimento da demanda e o relatório pós-audiência.", "mistura_sah": "Aceita mais S. Peso do H médio.", "tipo_de_base": "Checklist mínimo de solicitação e modelos de relatório por contratante.", "risco_principal": "Sigilo de cliente de terceiro."}
+    ],
+    "combinacoes": [
+      {"modelos": ["boutique", "consultivo"], "por_onde_comecar": "Comece pelo checklist de revisão de contrato: as posições da casa servem aos dois."},
+      {"modelos": ["solo", "digital"], "por_onde_comecar": "Atendimento e triagem, antes que o lead engula a agenda."},
+      {"modelos": ["volume", "digital"], "por_onde_comecar": "Triagem e controladoria, com cuidado ético dobrado na publicidade."},
+      {"modelos": ["full", "volume"], "por_onde_comecar": "Trate a célula de volume como um escritório dentro do escritório, com POP e indicador próprios."},
+      {"modelos": ["solo", "correspondencia"], "por_onde_comecar": "Separe agenda e financeiro por tipo de cliente antes de qualquer automação."}
+    ],
+    "sinais": [
+      {"sinal": "Existe coordenador de área e reunião de alinhamento entre departamentos", "modelo": "full"},
+      {"sinal": "O cliente contrata o nome do sócio, e cada caso tem estratégia própria", "modelo": "boutique"},
+      {"sinal": "Existe planilha ou sistema com centenas de processos e uma pessoa só para publicações", "modelo": "volume"},
+      {"sinal": "Você é quem atende, escreve, protocola e cobra", "modelo": "solo"},
+      {"sinal": "A receita vem de mensalidade de empresas, e o cliente cobra resposta rápida", "modelo": "consultivo"},
+      {"sinal": "Você sabe quantos leads chegaram na semana e quanto investiu em anúncio", "modelo": "digital"},
+      {"sinal": "Quem te paga é outro advogado, e a pauta muda todo dia", "modelo": "correspondencia"}
+    ]
+  },
+
+  "proximo_passo": {
+    "regra": "O próximo passo é o primeiro item não marcado da lista 'Progresso' do perfil.md depois do Diagnóstico. Sem perfil ou sem nada marcado: codigo-do-escritorio.",
+    "etapas": [
+      {"item": "Código do escritório", "skill": "codigo-do-escritorio", "solo": "O código é escrito para você e para a IA, e já prepara a primeira contratação: quem chegar aprende pelo papel.", "equipe": "Começa pelo retrato cultural, com perguntas a duas pessoas, por escrito e sem identificação. A diferença entre as respostas é o dado mais valioso."},
+      {"item": "Regra de uso de IA", "skill": "regra-de-uso-de-ia", "solo": "Vira um autocompromisso de uma página. Você é também o guardião dos dados.", "equipe": "Acordo assinado por cada pessoa em até uma semana, com guardião definido pelo porte. Sem acordo assinado, ninguém começa."},
+      {"item": "Mudança e núcleo", "skill": "implantar-a-mudanca", "solo": "Versão curta: piloto com você mesmo e bloco fixo de 3 a 4 horas por semana (skill nucleo-de-inovacao).", "equipe": "Ficha do piloto, reunião de lançamento e núcleo de inovação conforme o porte (skill nucleo-de-inovacao)."},
+      {"item": "Mapa de setores", "skill": "mapear-setores", "solo": "Sem entrevistas, com registro de horas reforçado.", "equipe": "Entrevistas com quem executa e registro de horas por setor."},
+      {"item": "POP do setor-alvo", "skill": "escrever-pop", "solo": "Executa, Confere e Decide são você: compense com conferência em outro momento e checklist escrito.", "equipe": "Funções separadas e cada ponto de revisão com nome."},
+      {"item": "Base de conhecimento", "skill": "montar-base", "solo": "Base organizada por você, com captura semanal do que funcionou.", "equipe": "Dono por pasta e regra de entrada."},
+      {"item": "Prontidão e primeira automação", "skill": "desenhar-automacao", "solo": "Plano para erro que prevê a sua ausência.", "equipe": "Responsável pela automação com nome."},
+      {"item": "Linha de base", "skill": "medir-retorno", "solo": "Valor da hora pelo faturamento ou pela retirada desejada.", "equipe": "Custo do colaborador para tarefas da equipe."},
+      {"item": "Primeira revisão trimestral", "skill": "revisao-periodica", "solo": "Revisão semanal sozinho, no bloco fixo.", "equipe": "Troca da semana, revisão mensal e trimestral."}
+    ],
+    "tarefa_paralela": "Enquanto isso, escreva o passo a passo atual do setor-alvo, do jeito que acontece hoje, sem melhorar nada. Ele é a matéria-prima do escrever-pop."
+  }
+}

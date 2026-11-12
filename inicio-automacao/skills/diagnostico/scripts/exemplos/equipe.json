@@ -1,0 +1,37 @@
+{
+  "data": "2026-10-16",
+  "perfil": {
+    "escritorio": "Escritório exemplo (equipe)",
+    "porte": "6 a 20 pessoas",
+    "pessoas": "3 advogados, 2 estagiários, 1 controller, 1 secretária, 1 pessoa no atendimento",
+    "papel": "Titular ou sócio(a)",
+    "areas": ["Trabalhista", "Previdenciário"],
+    "volume": 3,
+    "conta_de_ia": "mista"
+  },
+  "respostas": {
+    "c1": 2, "c2": 2, "c3": 2, "c4": 2, "c5": 2, "c6": 2,
+    "p1": 2, "p2": 2, "p3": 2, "p4": 2, "p5": 2,
+    "b1": 2, "b2": 2, "b3": [0, 1, 2, 3, 5, 6, 9], "b4": 2,
+    "i1": 3, "i2": [0, 1, 2, 3, 9], "i3": [0, 1, 2, 3, 6, 7, 9], "i4": 2, "i5": 2,
+    "g1": 2, "g2": 2, "g3": 2, "g4": 2, "g5": 2, "g6": 2,
+    "cm0": [2, 3, 4], "cm1": 2, "cm2": 2, "cm3": 2, "cm4": 2, "cm5": 2,
+    "e1": 1, "e2": 2, "e3": 2,
+    "v1": 3, "v2": 3, "v3": 2,
+    "m1": 2, "m2": [0, 1, 2, 4], "m3": 2
+  },
+  "setores": {
+    "atendimento": {"horas": "16 a 25 h", "incomodo": 4},
+    "comercial": {"horas": "26 h ou mais", "incomodo": 2},
+    "producao": {"horas": "26 h ou mais", "incomodo": 4},
+    "prazos": {"horas": "16 a 25 h", "incomodo": 5},
+    "audiencias": {"horas": "9 a 15 h", "incomodo": 3},
+    "financeiro": {"horas": "4 a 8 h", "incomodo": 3},
+    "relacionamento": {"horas": "16 a 25 h", "incomodo": 3},
+    "marketing": {"horas": "4 a 8 h", "incomodo": 2},
+    "equipe": {"horas": "4 a 8 h", "incomodo": 2},
+    "administrativo": {"horas": "9 a 15 h", "incomodo": 2}
+  },
+  "gargalo": "Publicação lida uma por uma e prazo lançado no último dia.",
+  "modelo": {"q1": 1, "q2": 2, "q3": 2, "q4": 0, "q5": 3, "q6": 1}
+}

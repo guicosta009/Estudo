@@ -1,0 +1,26 @@
+{
+  "descricao": "EXEMPLO FICTÍCIO: escritório com 2 advogados e 1 secretária. Percentuais de redução são estimativas do escritório.",
+  "modo": "fat",
+  "metodo_valor_hora": "método 1, faturamento",
+  "faturamento_mensal": 30000,
+  "horas_produtivas": 250,
+  "valor_hora": null,
+  "ferramentas_mes": 600,
+  "horas_implantacao": 40,
+  "valor_hora_implantacao": null,
+  "custos_unicos": 1500,
+  "revisao_h_semana": 3,
+  "aproveitamento_pct": 60,
+  "setores": [
+    {"setor": "Atendimento e triagem", "horas_semana": 10, "reducao_pct": 30, "origem": "estimado"},
+    {"setor": "Comercial", "horas_semana": 4, "reducao_pct": 20, "origem": "estimado"},
+    {"setor": "Produção de peças", "horas_semana": 20, "reducao_pct": 25, "origem": "estimado"},
+    {"setor": "Prazos e controladoria", "horas_semana": 6, "reducao_pct": 15, "origem": "estimado"},
+    {"setor": "Audiências e diligências", "horas_semana": 4, "reducao_pct": 0, "origem": "estimado"},
+    {"setor": "Financeiro e cobrança", "horas_semana": 4, "reducao_pct": 20, "origem": "estimado"},
+    {"setor": "Relacionamento com o cliente", "horas_semana": 6, "reducao_pct": 30, "origem": "estimado"},
+    {"setor": "Marketing e conteúdo", "horas_semana": 5, "reducao_pct": 30, "origem": "estimado"},
+    {"setor": "Gestão de equipe", "horas_semana": 3, "reducao_pct": 0, "origem": "estimado"},
+    {"setor": "Administrativo", "horas_semana": 4, "reducao_pct": 15, "origem": "estimado"}
+  ]
+}
